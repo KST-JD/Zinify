@@ -1,13 +1,11 @@
 package JandD.zinify
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
@@ -33,13 +31,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-        val filterBtn = findViewById<ImageButton>(R.id.filterBtn)
-        filterBtn.setOnClickListener {
-            val intent = Intent(this, FilterChoiceActivity::class.java)
-            startActivity(intent)
-        }
 
             // Request camera permissions
             if (allPermissionsGranted()) {
@@ -72,8 +63,7 @@ class MainActivity : AppCompatActivity() {
             // Create output options object which contains file + metadata
             val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
-            // Set up image capture listener, which is triggered after photo has
-            // been taken
+            // Set up image capture listener, which is triggered after photo has been taken
             imageCapture.takePicture(
                 outputOptions, ContextCompat.getMainExecutor(this), object : ImageCapture.OnImageSavedCallback {
                     override fun onError(exc: ImageCaptureException) {
