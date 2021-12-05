@@ -19,6 +19,14 @@
             android:exported="false"
             android:label="@string/title_activity_settings" />
         <activity
+            android:name=".GalleryActivity"
+            android:exported="false"
+            android:label="@string/title_activity_gallery" />
+        <activity
+            android:name=".CapturedImgActivity"
+            android:exported="true"
+            android:label="@string/title_activity_preview" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

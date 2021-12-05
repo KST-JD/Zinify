@@ -1,11 +1,12 @@
 package JandD.zinify
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
@@ -31,6 +32,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        // Gallery view
+        val galleryBtn = findViewById<ImageButton>(R.id.galleryBtn)
+        galleryBtn.setOnClickListener() {
+            val intent = Intent(this@MainActivity,GalleryActivity::class.java)
+            startActivity(intent)
+        }
 
             // Request camera permissions
             if (allPermissionsGranted()) {
@@ -41,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         // Set up the listener for take photo button
-            val buttonZin = findViewById<Button>(R.id.zinifyBtn)
+            val buttonZin = findViewById<ImageButton>(R.id.zinifyBtn)
 
             buttonZin.setOnClickListener { takePhoto() }
 
@@ -72,9 +79,10 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                         val savedUri = Uri.fromFile(photoFile)
-                        val msg = "Photo capture succeeded: $savedUri"
-                        Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-                        Log.d(TAG, msg)
+                        // Go to img preview
+                        val intent = Intent(this@MainActivity,CapturedImgActivity::class.java)
+                        intent.data = savedUri // parse img uri to intent
+                        startActivity(intent)
                     }
                 })
         }
