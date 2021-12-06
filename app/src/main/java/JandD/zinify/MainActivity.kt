@@ -18,8 +18,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -32,31 +30,32 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // Gallery view
-        val galleryBtn = findViewById<ImageButton>(R.id.galleryBtn)
-        galleryBtn.setOnClickListener() {
+
+        // Request camera permissions
+        if (allPermissionsGranted()) {
+            startCamera()
+        } else {
+            ActivityCompat.requestPermissions(
+                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+        }
+
+        // gallery button listener
+        findViewById<ImageButton>(R.id.galleryBtn).setOnClickListener {
             val intent = Intent(this@MainActivity,GalleryActivity::class.java)
             startActivity(intent)
         }
-
-            // Request camera permissions
-            if (allPermissionsGranted()) {
-                startCamera()
-            } else {
-                ActivityCompat.requestPermissions(
-                    this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
-            }
-
-        // Set up the listener for take photo button
-            val buttonZin = findViewById<ImageButton>(R.id.zinifyBtn)
-
-            buttonZin.setOnClickListener { takePhoto() }
-
+        // upload button listener
+        findViewById<ImageButton>(R.id.uploadBtn).setOnClickListener {
+            pickExternalImg()
+        }
+        // take photo button listener
+            val takePhoto = findViewById<ImageButton>(R.id.zinifyBtn)
+            takePhoto.setOnClickListener { takePhoto() }
             outputDirectory = getOutputDirectory()
-
             cameraExecutor = Executors.newSingleThreadExecutor()
         }
 
+        // Functions
         private fun takePhoto() {
             // Get a stable reference of the modifiable image capture use case
             val imageCapture = imageCapture ?: return
@@ -64,8 +63,7 @@ class MainActivity : AppCompatActivity() {
             // Create time-stamped output file to hold the image
             val photoFile = File(
                 outputDirectory,
-                SimpleDateFormat(FILENAME_FORMAT, Locale.US
-                ).format(System.currentTimeMillis()) + ".jpg")
+                "captured_temp.jpg")
 
             // Create output options object which contains file + metadata
             val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
@@ -80,14 +78,12 @@ class MainActivity : AppCompatActivity() {
                     override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                         val savedUri = Uri.fromFile(photoFile)
                         // Go to img preview
-                        val intent = Intent(this@MainActivity,CapturedImgActivity::class.java)
-                        intent.data = savedUri // parse img uri to intent
-                        startActivity(intent)
+                        goToImagePreview(savedUri)
                     }
                 })
         }
 
-    private fun startCamera() {
+        private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener(Runnable {
@@ -129,6 +125,26 @@ class MainActivity : AppCompatActivity() {
                 mediaDir else filesDir
         }
 
+        private fun pickExternalImg() {
+            val intentGallery = Intent(Intent.ACTION_PICK)
+            intentGallery.type = "image/*"
+            startActivityForResult(intentGallery, IMAGE_REQUEST_CODE)
+        }
+
+        private fun goToImagePreview(imageUri:Uri?) {
+            val intent = Intent(this@MainActivity,CapturedImgActivity::class.java)
+            intent.data = imageUri // parse img uri to intent
+            startActivity(intent)
+        }
+
+    // Trzeba by to przepisac na cos nowszego bo to jakas stara metoda jest
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
+            intent.data = data?.data // parse img uri to intent
+            goToImagePreview(intent.data)
+        }
+    }
 
         override fun onDestroy() {
             super.onDestroy()
@@ -137,8 +153,8 @@ class MainActivity : AppCompatActivity() {
 
         companion object {
             private const val TAG = "CameraXBasic"
-            private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
             private const val REQUEST_CODE_PERMISSIONS = 10
+            private const val IMAGE_REQUEST_CODE = 50
             private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
             }
     override fun onRequestPermissionsResult(
