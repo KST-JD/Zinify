@@ -1,2 +1,2 @@
-# Zinify
+# ZinAPP
 Interactive filter app
