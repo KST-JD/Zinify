@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Zinify</string>
+    <string name="app_name">ZinAPP</string>
     <string name="TweaksText">Filter settings</string>
     <string name="title_activity_settings">settings</string>
 
@@ -20,9 +20,13 @@
     <string name="title_activity_gallery">Gallery</string>
     <string name="title_activity_preview">Image preview</string>
     <string name="image_preview">Image preview</string>
-    <string name="return_description">return</string>
     <string name="apply_filter">Apply filter!</string>
     <string name="temp">Zinify/tmp</string>
     <string name="save_success">Image successfully saved</string>
     <string name="save_fail">File not saved due to an error!</string>
+
+    <!-- Accessibility descriptions -->
+    <string name="return_description">return</string>
+    <string name="rotateL_description">rotate left</string>
+    <string name="rotateR_description">rotate right</string>
 </resources>

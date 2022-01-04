@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/black"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -31,7 +32,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/applyFilterBtn"
         app:layout_constraintTop_toTopOf="@+id/applyFilterBtn"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_48" />
+        app:srcCompat="@drawable/ic_baseline_arrow_back_48"
+        tools:ignore="DuplicateSpeakableTextCheck,DuplicateSpeakableTextCheck" />
 
     <ImageButton
         android:id="@+id/safeBtn"
@@ -46,6 +48,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/applyFilterBtn"
         app:srcCompat="@drawable/ic_baseline_save_24" />
+
+
+    <ImageButton
+        android:id="@+id/rotateRightBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/rotateR_description"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_rotate_right" />
+
+    <ImageButton
+        android:id="@+id/rotateLeftBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/rotateL_description"
+        app:layout_constraintTop_toBottomOf="@id/rotateRightBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_rotate_left" />
 
     <Button
         android:id="@+id/applyFilterBtn"
