@@ -83,7 +83,7 @@ class CapturedImgActivity : AppCompatActivity() {
         return try {
             val directory = File(
                 baseContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-                "saved ZIN_images"
+                getString(R.string.image_folder_name)
             )
             if(!directory.exists()) {
                 directory.mkdirs()

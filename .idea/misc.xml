@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/maxpa/AndroidStudioProjects/IMPORTS/Zinify/app/src/main/res/layout/activity_main.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/maxpa/AndroidStudioProjects/IMPORTS/Zinify/app/src/main/res/layout/gallery_view.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/maxpa/AndroidStudioProjects/IMPORTS/Zinify/app/src/main/res/layout/image_edit.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/maxpa/AndroidStudioProjects/IMPORTS/Zinify/app/src/main/res/layout/list_item.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/maxpa/AndroidStudioProjects/IMPORTS/Zinify/app/src/main/res/layout/zingallery_image.xml" value="0.17300724637681159" />
         <entry key="..\:/Users/maxpa/AndroidStudioProjects/Zinify/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14895833333333333" />
         <entry key="..\:/Users/maxpa/AndroidStudioProjects/Zinify/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/maxpa/AndroidStudioProjects/Zinify/app/src/main/res/layout/filter_choice.xml" value="0.2" />

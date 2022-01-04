@@ -2,6 +2,7 @@
     <string name="app_name">ZinAPP</string>
     <string name="TweaksText">Filter settings</string>
     <string name="title_activity_settings">settings</string>
+    <string name="image_folder_name">saved ZIN_images</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
