@@ -1,5 +1,6 @@
 package JandD.zinify
 
+import JandD.zinify.gallery.GalleryActivity
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         // gallery button listener
         findViewById<ImageButton>(R.id.galleryBtn).setOnClickListener {
-            val intent = Intent(this@MainActivity,GalleryActivity::class.java)
+            val intent = Intent(this@MainActivity, GalleryActivity::class.java)
             startActivity(intent)
         }
         // upload button listener

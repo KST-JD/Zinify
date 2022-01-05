@@ -1,13 +1,14 @@
-package JandD.zinify
+package JandD.zinify.gallery
 
-import JandD.zinify.zinGalleryAdapter.GridGalleryAdapter
+import JandD.zinify.MainActivity
+import JandD.zinify.R
+import JandD.zinify.gallery.zinGalleryAdapter.GridGalleryAdapter
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
@@ -28,10 +29,17 @@ class GalleryActivity : AppCompatActivity() {
         gallery.adapter = GridGalleryAdapter(imageList)
     }
 
+    // Handles updating gallery content when deleting images
+    override fun onResume() {
+        super.onResume()
+        val imageList = loadImagesUri()
+        val gallery = findViewById<RecyclerView>(R.id.grid_recycler_view)
+        gallery.adapter = GridGalleryAdapter(imageList)
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent = Intent(this,MainActivity::class.java)
-            startActivity(intent) //TODO add normal return and back key handling
+        finish()
     }
 
     private fun loadImagesUri(): List<Uri> {

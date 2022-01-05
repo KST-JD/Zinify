@@ -1,5 +1,7 @@
-package JandD.zinify
+package JandD.zinify.gallery
 
+import JandD.zinify.EditImageActivity
+import JandD.zinify.R
 import JandD.zinify.gallery.GalleryActivity
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -22,51 +24,41 @@ import java.util.*
 import java.io.File as File
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.widget.Button
+import kotlinx.android.synthetic.main.gallery_image_preview.*
 
 
-class EditImageActivity : AppCompatActivity() {
+class PreviewImageFromGallery : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.image_edit)
+        setContentView(R.layout.gallery_image_preview)
         val capturedUri = intent.data!!
-        val previousActivity = intent.getIntExtra("callerID", 0)
         var imageBitmap = getImageBitmap(capturedUri)
 
-        if (previousActivity == 1) imageBitmap = rotateBitmap(imageBitmap, 90F)
         // Handles getting captured image displayed on preview
-        val imagePreview = findViewById<ImageView>(R.id.imagePreview)
+        val imagePreview = findViewById<ImageView>(R.id.galleryImagePreview)
         imagePreview.setImageBitmap(imageBitmap)
 
 
-        // Handling img saving
-        val saveBtn = findViewById<ImageButton>(R.id.safeBtn)
-        saveBtn.setOnClickListener {
-            if (writePermissionsGranted()) {
-                saveImg(imageBitmap)
-            } else {         // Request write permissions
-                ActivityCompat.requestPermissions(
-                    this, WRITE_PERMISSION, REQUEST_CODE_PERMISSIONS
-                )
-            }
+        // Handling edit call
+        findViewById<Button>(R.id.btnEdit).setOnClickListener() {
+                val intent = Intent(this,EditImageActivity::class.java)
+                intent.data = capturedUri
+                intent.putExtra("callerID", 2)
+                startActivity(intent)
         }
 
-        // Image rotating
-        findViewById<ImageView>(R.id.rotateLeftBtn).setOnClickListener {
-            imageBitmap = rotateBitmap(imageBitmap, 90F)
-            imagePreview.setImageBitmap(imageBitmap)
-        }
-        findViewById<ImageView>(R.id.rotateRightBtn).setOnClickListener {
-            imageBitmap = rotateBitmap(imageBitmap, -90F)
-            imagePreview.setImageBitmap(imageBitmap)
+        // Handling delete
+        findViewById<Button>(R.id.btnDelete).setOnClickListener() {
+            exitActivity(true)
         }
 
         // Handling exit
-        exitActivity(previousActivity,capturedUri)
-    }
+        findViewById<Button>(R.id.btnReturn).setOnClickListener() {
+            exitActivity()
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        exitActivity(intent.getIntExtra("callerID", 0),intent.data!!)
+        }
+
     }
 
     companion object {
@@ -127,19 +119,12 @@ class EditImageActivity : AppCompatActivity() {
         return imageBitmap
     }
 
-    private fun exitActivity(previousActivity: Int, uri: Uri) {
-        val backBtn = findViewById<ImageButton>(R.id.returnBtn)
-        backBtn.setOnClickListener{
-            if(previousActivity== 0 || previousActivity == 1) {
-                val tempImg = File(uri.path) // To handle later delete of temp img file
+    private fun exitActivity(delete: Boolean = false) {
+            if (delete) {
+                val tempImg = File(intent.data?.path) // To handle later delete of temp img file
                 tempImg.delete() // Delete tmp img
             }
             // handles going back to previous activity
-            val intent = when (previousActivity) {
-                2 -> Intent(this@EditImageActivity, GalleryActivity::class.java)
-                else -> Intent(this@EditImageActivity, MainActivity::class.java)
-            }
-            startActivity(intent)
-        }
+            finish()
     }
 }

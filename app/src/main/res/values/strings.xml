@@ -31,4 +31,7 @@
     <string name="rotateL_description">rotate left</string>
     <string name="rotateR_description">rotate right</string>
     <string name="gallery_empty_info">no images found yet, get going!</string>
+    <string name="str_delete">delete</string>
+    <string name="str_edit">edit</string>
+    <string name="str_return">return</string>
 </resources>

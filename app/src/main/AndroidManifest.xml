@@ -19,9 +19,12 @@
             android:exported="false"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".GalleryActivity"
+            android:name=".gallery.GalleryActivity"
             android:exported="false"
             android:label="@string/title_activity_gallery" />
+        <activity android:name=".gallery.PreviewImageFromGallery"
+            android:exported="false"
+            android:label="Gallery preview"/>
         <activity
             android:name=".EditImageActivity"
             android:exported="true"
