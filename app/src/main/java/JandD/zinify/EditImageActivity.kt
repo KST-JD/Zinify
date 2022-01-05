@@ -23,14 +23,15 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 
 
-class CapturedImgActivity : AppCompatActivity() {
+class EditImageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.image_edit)
-        val capturedUri = intent.data
-        val tempImg = File(capturedUri!!.path) // To handle later delete of temp img file
+        val capturedUri = intent.data!!
+        val previousActivity = intent.getIntExtra("callerID", 0)
         var imageBitmap = getImageBitmap(capturedUri)
-        imageBitmap = rotateBitmap(imageBitmap, 90F)
+
+        if (previousActivity == 1) imageBitmap = rotateBitmap(imageBitmap, 90F)
         // Handles getting captured image displayed on preview
         val imagePreview = findViewById<ImageView>(R.id.imagePreview)
         imagePreview.setImageBitmap(imageBitmap)
@@ -59,14 +60,12 @@ class CapturedImgActivity : AppCompatActivity() {
         }
 
         // Handling exit
-        val backBtn = findViewById<ImageButton>(R.id.returnBtn)
-        backBtn.setOnClickListener {
-            tempImg.delete()
-            val intent = Intent(this@CapturedImgActivity, MainActivity::class.java)
-            startActivity(intent)
-            tempImg.delete()
-        }
+        exitActivity(previousActivity,capturedUri)
+    }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        exitActivity(intent.getIntExtra("callerID", 0),intent.data!!)
     }
 
     companion object {
@@ -125,5 +124,21 @@ class CapturedImgActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         return imageBitmap
+    }
+
+    private fun exitActivity(previousActivity: Int, uri: Uri) {
+        val backBtn = findViewById<ImageButton>(R.id.returnBtn)
+        backBtn.setOnClickListener{
+            if(previousActivity== 0 || previousActivity == 1) {
+                val tempImg = File(uri.path) // To handle later delete of temp img file
+                tempImg.delete() // Delete tmp img
+            }
+            // handles going back to previous activity
+            val intent = when (previousActivity) {
+                2 -> Intent(this@EditImageActivity, GalleryActivity::class.java)
+                else -> Intent(this@EditImageActivity, MainActivity::class.java)
+            }
+            startActivity(intent)
+        }
     }
 }

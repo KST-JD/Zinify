@@ -30,4 +30,5 @@
     <string name="return_description">return</string>
     <string name="rotateL_description">rotate left</string>
     <string name="rotateR_description">rotate right</string>
+    <string name="gallery_empty_info">no images found yet, get going!</string>
 </resources>

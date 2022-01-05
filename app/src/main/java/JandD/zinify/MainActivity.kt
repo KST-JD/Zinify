@@ -128,18 +128,18 @@ class MainActivity : AppCompatActivity() {
         private fun pickExternalImg() {
             val intentGallery = Intent(Intent.ACTION_PICK)
             intentGallery.type = "image/*"
-            startActivityForResult(intentGallery, IMAGE_REQUEST_CODE)
+            startActivityForResult(intentGallery, IMAGE_REQUEST_CODE)// TODO depricated function
         }
 
-        private fun goToImagePreview(imageUri:Uri?) {
-            val intent = Intent(this@MainActivity,CapturedImgActivity::class.java)
+        fun goToImagePreview(imageUri:Uri?) {
+            val intent = Intent(this,EditImageActivity::class.java)
             intent.data = imageUri // parse img uri to intent
+            intent.putExtra("callerID",1)
             startActivity(intent)
         }
 
-    // Trzeba by to przepisac na cos nowszego bo to jakas stara metoda jest
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)// TODO depricated function
         if(requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
             intent.data = data?.data // parse img uri to intent
             goToImagePreview(intent.data)

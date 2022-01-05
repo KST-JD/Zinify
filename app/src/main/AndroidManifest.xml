@@ -23,7 +23,7 @@
             android:exported="false"
             android:label="@string/title_activity_gallery" />
         <activity
-            android:name=".CapturedImgActivity"
+            android:name=".EditImageActivity"
             android:exported="true"
             android:label="@string/title_activity_preview" />
         <activity
