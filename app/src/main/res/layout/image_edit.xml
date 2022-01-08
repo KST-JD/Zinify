@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/black"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -20,8 +19,9 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_menu_report_image" />
 
-    <ImageButton
-        android:id="@+id/returnBtn"
+    <Button
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:id="@+id/return_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -32,11 +32,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/applyFilterBtn"
         app:layout_constraintTop_toTopOf="@+id/applyFilterBtn"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_48"
+        tools:text="RETURN"
+        app:iconSize="24dp"
+        android:text="@string/str_return"
+        app:icon="@drawable/ic_baseline_arrow_back_24"
         tools:ignore="DuplicateSpeakableTextCheck,DuplicateSpeakableTextCheck" />
 
-    <ImageButton
-        android:id="@+id/safeBtn"
+    <Button
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:id="@+id/save_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -47,30 +51,11 @@
         app:layout_constraintEnd_toStartOf="@+id/applyFilterBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/applyFilterBtn"
+        app:icon="@drawable/ic_baseline_save_24"
+        android:text="@string/str_save"
+        app:iconSize="24dp"
+        tools:text="SAVE IMG"
         app:srcCompat="@drawable/ic_baseline_save_24" />
-
-
-    <ImageButton
-        android:id="@+id/rotateRightBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="@string/rotateR_description"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_rotate_right" />
-
-    <ImageButton
-        android:id="@+id/rotateLeftBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="@string/rotateL_description"
-        app:layout_constraintTop_toBottomOf="@id/rotateRightBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_rotate_left" />
 
     <Button
         android:id="@+id/applyFilterBtn"
@@ -80,5 +65,31 @@
         android:text="@string/apply_filter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="FILTER"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/rotateRightBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/rotateR_description"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_baseline_rotate_right" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/rotateLeftBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/rotateL_description"
+        app:layout_constraintTop_toBottomOf="@id/rotateRightBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_baseline_rotate_left" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

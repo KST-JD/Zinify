@@ -41,16 +41,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         // gallery button listener
-        findViewById<ImageButton>(R.id.galleryBtn).setOnClickListener {
+        findViewById<ImageButton>(R.id.gallery_button).setOnClickListener {
             val intent = Intent(this@MainActivity, GalleryActivity::class.java)
             startActivity(intent)
         }
         // upload button listener
-        findViewById<ImageButton>(R.id.uploadBtn).setOnClickListener {
+        findViewById<ImageButton>(R.id.upload_button).setOnClickListener {
             pickExternalImg()
         }
         // take photo button listener
-            val takePhoto = findViewById<ImageButton>(R.id.zinifyBtn)
+            val takePhoto = findViewById<ImageButton>(R.id.zinify_floating_btn)
             takePhoto.setOnClickListener { takePhoto() }
             outputDirectory = getOutputDirectory()
             cameraExecutor = Executors.newSingleThreadExecutor()
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             val preview = Preview.Builder()
                 .build()
                 .also {
-                    it.setSurfaceProvider(viewFinder.surfaceProvider)
+                    it.setSurfaceProvider(camera_view.surfaceProvider)
                 }
             imageCapture = ImageCapture.Builder()
                 .build()

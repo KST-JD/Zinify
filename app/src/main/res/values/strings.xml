@@ -21,7 +21,7 @@
     <string name="title_activity_gallery">Gallery</string>
     <string name="title_activity_preview">Image preview</string>
     <string name="image_preview">Image preview</string>
-    <string name="apply_filter">Apply filter!</string>
+    <string name="apply_filter">filter</string>
     <string name="temp">Zinify/tmp</string>
     <string name="save_success">Image successfully saved</string>
     <string name="save_fail">File not saved due to an error!</string>
@@ -34,4 +34,5 @@
     <string name="str_delete">delete</string>
     <string name="str_edit">edit</string>
     <string name="str_return">return</string>
+    <string name="str_save">save</string>
 </resources>

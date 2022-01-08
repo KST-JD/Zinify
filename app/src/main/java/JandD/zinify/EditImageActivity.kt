@@ -22,6 +22,7 @@ import java.util.*
 import java.io.File as File
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.widget.Button
 
 
 class EditImageActivity : AppCompatActivity() {
@@ -39,7 +40,7 @@ class EditImageActivity : AppCompatActivity() {
 
 
         // Handling img saving
-        val saveBtn = findViewById<ImageButton>(R.id.safeBtn)
+        val saveBtn = findViewById<Button>(R.id.save_button)
         saveBtn.setOnClickListener {
             if (writePermissionsGranted()) {
                 saveImg(imageBitmap)
@@ -128,7 +129,7 @@ class EditImageActivity : AppCompatActivity() {
     }
 
     private fun exitActivity(previousActivity: Int, uri: Uri) {
-        val backBtn = findViewById<ImageButton>(R.id.returnBtn)
+        val backBtn = findViewById<Button>(R.id.return_button)
         backBtn.setOnClickListener{
             if(previousActivity== 0 || previousActivity == 1) {
                 val tempImg = File(uri.path) // To handle later delete of temp img file

@@ -7,40 +7,46 @@
     tools:context=".MainActivity">
 
     <androidx.camera.view.PreviewView
-        android:id="@+id/viewFinder"
+        android:id="@+id/camera_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <ImageButton
-        app:srcCompat="@drawable/ic_baseline_photo_camera"
-        android:id="@+id/zinifyBtn"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        app:srcCompat="@drawable/ic_baseline_camera_48"
+        android:id="@+id/zinify_floating_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
-        android:scaleType="fitCenter"
-        android:text="ZINIFY!"
+        app:fabCustomSize="80dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/secondaryColor"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageButton
-        android:id="@+id/uploadBtn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/upload_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="4dp"
+        app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/grayOpaque"
+        app:borderWidth="0dp"
         app:srcCompat="@android:drawable/ic_menu_upload" />
 
-    <ImageButton
-        android:id="@+id/galleryBtn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/gallery_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="4dp"
+        app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/uploadBtn"
+        app:layout_constraintTop_toBottomOf="@id/upload_button"
+        android:backgroundTint="@color/grayOpaque"
+        app:borderWidth="0dp"
         app:srcCompat="@drawable/ic_baseline_image_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

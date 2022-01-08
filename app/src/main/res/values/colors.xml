@@ -8,9 +8,11 @@
     <color name="primaryLightColor">#be9c91</color>
     <color name="primaryDarkColor">#5f4339</color>
     <color name="secondaryColor">#ffca28</color>
+    <color name="secondaryColorOpaque">#77ffca28</color>
     <color name="secondaryLightColor">#fffd61</color>
     <color name="secondaryDarkColor">#c79a00</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="grayOpaque">#88AAAAAA</color>
 
 </resources>
