@@ -1,2 +1,2 @@
 # ZinAPP
-Interactive filter app fro android
+Interactive filter app for android
