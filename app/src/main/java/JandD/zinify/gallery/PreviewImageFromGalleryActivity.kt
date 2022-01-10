@@ -28,7 +28,7 @@ import android.widget.Button
 import kotlinx.android.synthetic.main.gallery_image_preview.*
 
 
-class PreviewImageFromGallery : AppCompatActivity() {
+class PreviewImageFromGalleryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gallery_image_preview)
@@ -55,8 +55,7 @@ class PreviewImageFromGallery : AppCompatActivity() {
 
         // Handling exit
         findViewById<Button>(R.id.btnReturn).setOnClickListener() {
-            exitActivity()
-
+            finish()
         }
 
     }
@@ -66,39 +65,9 @@ class PreviewImageFromGallery : AppCompatActivity() {
         private val WRITE_PERMISSION = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
-    private fun writePermissionsGranted() = WRITE_PERMISSION.all {
-        ContextCompat.checkSelfPermission(
-            baseContext, it) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun saveImg(imgToSave: Bitmap): Uri? {
-        return try {
-            val directory = File(
-                baseContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-                getString(R.string.image_folder_name)
-            )
-            if(!directory.exists()) {
-                directory.mkdirs()
-            }
-            val fileName = "ZIN_${System.currentTimeMillis()}.jpg"
-            Log.d(TAG, "saveImg: $directory")
-            val img = File(directory, fileName)
-            with(FileOutputStream(img)) {
-                imgToSave.compress(Bitmap.CompressFormat.JPEG, 100, this)
-                flush()
-                close()
-            }
-            Toast.makeText(this, "Image saved successfully", Toast.LENGTH_SHORT).show()
-            FileProvider.getUriForFile(baseContext, "${baseContext.packageName}.provider", img)
-        } catch (exception: Exception) {
-            null
-        }
-    }
-
-    private fun rotateBitmap(source: Bitmap, angle: Float): Bitmap {
-        val matrix = Matrix()
-        matrix.postRotate(angle)
-        return Bitmap.createBitmap(source, 0, 0, source.width, source.height, matrix, true)
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
     private fun getImageBitmap(imageUri: Uri): Bitmap {
@@ -124,7 +93,6 @@ class PreviewImageFromGallery : AppCompatActivity() {
                 val tempImg = File(intent.data?.path) // To handle later delete of temp img file
                 tempImg.delete() // Delete tmp img
             }
-            // handles going back to previous activity
             finish()
     }
 }

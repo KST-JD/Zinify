@@ -1,9 +1,7 @@
 package JandD.zinify.gallery.zinGalleryAdapter
 
-import JandD.zinify.EditImageActivity
 import JandD.zinify.R
-import JandD.zinify.gallery.GalleryActivity
-import JandD.zinify.gallery.PreviewImageFromGallery
+import JandD.zinify.gallery.PreviewImageFromGalleryActivity
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -28,7 +26,7 @@ class GridGalleryAdapter (
         holder.zinImg.setImageURI(item)
 
         holder.zinImg.setOnClickListener() {
-            val intent = Intent(holder.zinImg.context,PreviewImageFromGallery::class.java)
+            val intent = Intent(holder.zinImg.context,PreviewImageFromGalleryActivity::class.java)
             intent.data = dataset[position]// parse img uri to intent
             holder.zinImg.context.startActivity(intent)
         }
