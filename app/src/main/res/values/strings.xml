@@ -35,4 +35,5 @@
     <string name="str_edit">edit</string>
     <string name="str_return">return</string>
     <string name="str_save">save</string>
+    <string name="external_pick_error_string">Pick from external gallery cancelled</string>
 </resources>

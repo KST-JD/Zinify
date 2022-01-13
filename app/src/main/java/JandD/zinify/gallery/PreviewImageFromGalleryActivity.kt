@@ -89,10 +89,10 @@ class PreviewImageFromGalleryActivity : AppCompatActivity() {
     }
 
     private fun exitActivity(delete: Boolean = false) {
-            if (delete) {
-                val tempImg = File(intent.data?.path) // To handle later delete of temp img file
-                tempImg.delete() // Delete tmp img
-            }
-            finish()
+        if (delete) {
+            val tempImg = File(intent.data?.path) // To handle later delete of temp img file
+            tempImg.delete() // Delete tmp img
+        }
+        finish()
     }
 }

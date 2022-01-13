@@ -44,6 +44,7 @@ class EditImageActivity : AppCompatActivity() {
         saveBtn.setOnClickListener {
             if (writePermissionsGranted()) {
                 saveImg(imageBitmap)
+                finish()
             } else {         // Request write permissions
                 ActivityCompat.requestPermissions(
                     this, WRITE_PERMISSION, REQUEST_CODE_PERMISSIONS

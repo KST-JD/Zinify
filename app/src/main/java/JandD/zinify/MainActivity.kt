@@ -4,16 +4,17 @@ import JandD.zinify.gallery.GalleryActivity
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.Preview
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -25,6 +26,7 @@ import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
     private var imageCapture: ImageCapture? = null
+    private var photoTaken = false
 
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
@@ -51,7 +53,12 @@ class MainActivity : AppCompatActivity() {
         }
         // take photo button listener
             val takePhoto = findViewById<ImageButton>(R.id.zinify_floating_btn)
-            takePhoto.setOnClickListener { takePhoto() }
+            takePhoto.setOnClickListener {
+                if (!photoTaken) {
+                    photoTaken = true
+                    takePhoto()
+                }
+            }
             outputDirectory = getOutputDirectory()
             cameraExecutor = Executors.newSingleThreadExecutor()
         }
@@ -79,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                     override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                         val savedUri = Uri.fromFile(photoFile)
                         // Go to img preview
-                        goToImagePreview(savedUri)
+                        goToImagePreview(savedUri, 1)
                     }
                 })
         }
@@ -129,21 +136,26 @@ class MainActivity : AppCompatActivity() {
         private fun pickExternalImg() {
             val intentGallery = Intent(Intent.ACTION_PICK)
             intentGallery.type = "image/*"
-            startActivityForResult(intentGallery, IMAGE_REQUEST_CODE)// TODO depricated function
+            startActivityForResult(intentGallery, IMAGE_REQUEST_CODE)// NOTTODO za cholere nie moge tego zrobic bez tej funkcji
         }
 
-        fun goToImagePreview(imageUri:Uri?) {
-            val intent = Intent(this,EditImageActivity::class.java)
+        fun goToImagePreview(imageUri:Uri?, callerId: Int) {
+            val intent = Intent(this, EditImageActivity::class.java)
             intent.data = imageUri // parse img uri to intent
-            intent.putExtra("callerID",1)
+            intent.putExtra("callerID",callerId)
             startActivity(intent)
         }
+
+    override fun onResume() {
+        super.onResume()
+        photoTaken = false
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)// TODO depricated function
         if(requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
             intent.data = data?.data // parse img uri to intent
-            goToImagePreview(intent.data)
+            goToImagePreview(intent.data, 3)
         }
     }
 
