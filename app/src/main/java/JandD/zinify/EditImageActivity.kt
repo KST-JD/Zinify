@@ -9,9 +9,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -22,13 +19,90 @@ import java.util.*
 import java.io.File as File
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
-import android.widget.Button
+import android.graphics.drawable.BitmapDrawable
+import android.util.Base64
+import android.view.View
+import android.widget.*
+
+import com.chaquo.python.PyObject
+import com.chaquo.python.Python
+import com.chaquo.python.android.AndroidPlatform
 
 
 class EditImageActivity : AppCompatActivity() {
+
+
+   // var btn: Button? = null
+    var iv: ImageView? = null
+    var iv2: ImageView? = null
+
+    var drawable: BitmapDrawable? = null
+    var bitmap: Bitmap? = null
+    var imageString = ""
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.image_edit)
+
+        //var btn: Button? = null
+
+
+        //btn = findViewById<View>(R.id.applyFilterBtn) as Button
+
+        iv = findViewById<View>(R.id.imagePreview) as ImageView
+        iv2 = findViewById<View>(R.id.imagePreview) as ImageView
+
+        if (!Python.isStarted()) Python.start(AndroidPlatform(this))
+
+        val py = Python.getInstance()
+
+        //val pyo = py.getModule("algorithmZin")
+        //val obj = pyo.callAttr("main", imageString)
+
+
+        val Btn = findViewById<Button>(R.id.applyFilterBtn)
+        Btn.setOnClickListener {
+            drawable = iv?.getDrawable() as BitmapDrawable
+            bitmap = drawable?.getBitmap()
+            imageString = getStringImage(bitmap)
+
+            //val pyo = py . getModule ("TEST");
+            val pyo = py . getModule ("algorithmZin");
+            val obj = pyo.callAttr("main", imageString)
+
+
+
+            val str = obj.toString()
+            val data = Base64.decode(str, Base64.DEFAULT)
+            val bmp = BitmapFactory.decodeByteArray(data, 0, data.size)
+            iv2!!.setImageBitmap(bmp)
+
+        }
+
+
+
+
+
+
+            // fun getStringImage(bitmap: Bitmap?): String {
+              //  val baos = ByteArrayOutputStream()
+               // bitmap!!.compress(Bitmap.CompressFormat.PNG, 100, baos)
+                //val imageBytes = baos.toByteArray()
+              //  val encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT)
+              //  return encodedImage
+
+
+
+
+           // }
+
+
+
+
+
+
+
         val capturedUri = intent.data!!
         val previousActivity = intent.getIntExtra("callerID", 0)
         var imageBitmap = getImageBitmap(capturedUri)
@@ -65,6 +139,17 @@ class EditImageActivity : AppCompatActivity() {
         // Handling exit
         exitActivity(previousActivity,capturedUri)
     }
+
+    private fun getStringImage(bitmap: Bitmap?): String {
+
+        val baos = ByteArrayOutputStream()
+        bitmap!!.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        val imageBytes = baos.toByteArray()
+        val encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT)
+        return encodedImage
+
+    }
+
 
     override fun onBackPressed() {
         super.onBackPressed()

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
+    id 'com.chaquo.python'
 }
 
 android {
@@ -9,12 +10,51 @@ android {
 
     defaultConfig {
         applicationId "JandD.zinify"
+
+        python{
+            pip{
+
+                install "numpy"
+                install "imageio"
+                install "scipy"
+                install "matplotlib"
+                install "opencv-python"
+                install "Pillow"
+                install "pybase64"
+                //install "requires.io"
+                //install "io"
+
+
+
+            }
+        }
+
+
+        sourceSets {
+            //Folder źródłowy do pythona
+            main {
+                //python.srcDir "src/main/python"
+                setRoot "src/main"
+                python.srcDirs = ["src/main/python"]
+            }
+        }
+        //lokalizacja python.exe na moim dysku. Na twoim może być inna.
+        python{
+            buildPython "D:/Program Files (x86)/Python2/python.exe"
+
+        }
         minSdk 21
         targetSdk 31
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+
+
     }
 
     buildTypes {
