@@ -36,4 +36,5 @@
     <string name="str_return">return</string>
     <string name="str_save">save</string>
     <string name="external_pick_error_string">Pick from external gallery cancelled</string>
+    <string name="sigma_slider_text">Adjust sigma parameter of filter</string>
 </resources>

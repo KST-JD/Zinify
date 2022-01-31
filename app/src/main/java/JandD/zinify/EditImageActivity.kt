@@ -25,6 +25,9 @@ import android.widget.*
 
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
+import com.google.android.material.slider.RangeSlider
+import com.google.android.material.slider.Slider
+import kotlinx.android.synthetic.main.image_edit.*
 
 
 class EditImageActivity : AppCompatActivity() {
@@ -34,6 +37,7 @@ class EditImageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.image_edit)
 
+        var sigma: Float = 50F // <-- To wrzucasz w filtr
         val capturedUri = intent.data!!
         val previousActivity = intent.getIntExtra("callerID", 0)
         var imageBitmap = if (previousActivity == 1) { // Bo android sobie to obraca (pewnie przez to że to linux)
@@ -84,6 +88,12 @@ class EditImageActivity : AppCompatActivity() {
                     this, WRITE_PERMISSION, REQUEST_CODE_PERMISSIONS
                 )
             }
+        }
+
+        val sigmaSlider = findViewById<Slider>(R.id.sigma_slider)
+        sigmaSlider.addOnChangeListener { _, value, _ ->
+            sigma = value
+            Log.d(TAG, "onCreate: $sigma")
         }
 
         // Image rotating
