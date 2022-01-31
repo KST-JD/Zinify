@@ -62,7 +62,7 @@ class EditImageActivity : AppCompatActivity() {
 
             //val pyo = py . getModule ("TEST");
             val pyo = py . getModule ("algorithmZin");
-            val obj = pyo.callAttr("main", imageString)
+            val obj = pyo.callAttr("main", imageString,sigma)
 
 
 
