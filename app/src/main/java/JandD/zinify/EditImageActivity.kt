@@ -31,16 +31,16 @@ class EditImageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.image_edit)
 
+        val scalingScale = 8
         var sigma: Float = 50F // <-- To wrzucasz w filtr
         val capturedUri = intent.data!!
         val previousActivity = intent.getIntExtra("callerID", 0)
         var imageBitmap = if (previousActivity == 1) { // Bo android sobie to obraca (pewnie przez to że to linux)
-            rotateBitmap(getImageBitmap(capturedUri), 90F)
+            val bmp = rotateBitmap(getImageBitmap(capturedUri), 90F)
+            Bitmap.createScaledBitmap(bmp, bmp.width/scalingScale, bmp.height/scalingScale, true)
         } else
             getImageBitmap(capturedUri)
 
-        val scalingScale = 4
-        imageBitmap = Bitmap.createScaledBitmap(imageBitmap, imageBitmap.width/scalingScale, imageBitmap.height/scalingScale, true)
         var originalImgBitmap = imageBitmap
 
         if (previousActivity == 1) {
