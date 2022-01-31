@@ -3,11 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Program Files (x86)/Zinify/app/src/main/res/layout/activity_main.xml" value="0.21467391304347827" />
-        <entry key="..\:/Program Files (x86)/Zinify/app/src/main/res/layout/gallery_image_preview.xml" value="0.28940217391304346" />
-        <entry key="..\:/Program Files (x86)/Zinify/app/src/main/res/layout/gallery_view.xml" value="0.28940217391304346" />
-        <entry key="..\:/Program Files (x86)/Zinify/app/src/main/res/layout/image_edit.xml" value="0.28940217391304346" />
-        <entry key="..\:/Program Files (x86)/Zinify/app/src/main/res/layout/zingallery_image.xml" value="0.28940217391304346" />
         <entry key="..\:/Users/maxpa/AndroidStudioProjects/IMPORTS/Zinify/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.15" />
         <entry key="..\:/Users/maxpa/AndroidStudioProjects/IMPORTS/Zinify/app/src/main/res/drawable/ic_baseline_camera_48.xml" value="0.15" />
         <entry key="..\:/Users/maxpa/AndroidStudioProjects/IMPORTS/Zinify/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.15" />
@@ -31,6 +26,7 @@
         <entry key="..\:/Users/maxpa/AndroidStudioProjects/Zinify/app/src/main/res/layout/settings_activity.xml" value="0.259375" />
         <entry key="..\:/Users/maxpa/AndroidStudioProjects/Zinify/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.14895833333333333" />
         <entry key="..\:/Users/maxpa/AndroidStudioProjects/Zinify/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.14895833333333333" />
+        <entry key="app/src/main/res/layout/gallery_image_preview.xml" value="0.19202898550724637" />
         <entry key="app/src/main/res/layout/gallery_view.xml" value="0.33229166666666665" />
         <entry key="app/src/main/res/layout/image_edit.xml" value="0.33229166666666665" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.33229166666666665" />

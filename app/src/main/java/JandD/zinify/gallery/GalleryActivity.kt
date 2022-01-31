@@ -26,7 +26,9 @@ class GalleryActivity : AppCompatActivity() {
 
         //
         val gallery = findViewById<RecyclerView>(R.id.grid_recycler_view)
-        gallery.adapter = GridGalleryAdapter(imageList)
+        if (imageList.isNotEmpty()) {
+            gallery.adapter = GridGalleryAdapter(imageList)
+        }
     }
 
     // Handles updating gallery content when deleting images
@@ -34,7 +36,10 @@ class GalleryActivity : AppCompatActivity() {
         super.onResume()
         val imageList = loadImagesUri()
         val gallery = findViewById<RecyclerView>(R.id.grid_recycler_view)
-        gallery.adapter = GridGalleryAdapter(imageList)
+        if (imageList.isNotEmpty()) {
+            gallery.adapter = GridGalleryAdapter(imageList)
+        } else
+            gallery.adapter = null
     }
 
     override fun onBackPressed() {
@@ -53,8 +58,7 @@ class GalleryActivity : AppCompatActivity() {
                 imageUriList.add(it.normalize().toUri())
             }
          }else {
-            findViewById<TextView>(R.id.galleryText).text = getString(R.string.gallery_empty_info)
-            //TODO(handling empty app gallery)
+            return imageUriList
          }
         Log.w(TAG, "loadImagesUri: $imageUriList")
         imageUriList.removeAt(0)

@@ -40,8 +40,8 @@ android {
         }
         //lokalizacja python.exe na moim dysku. Na twoim może być inna.
         python{
-            buildPython "D:/Program Files (x86)/Python2/python.exe"
-
+            //buildPython "D:/Program Files (x86)/Python2/python.exe"
+            // A na moim nie trzba mu nic mówić :)
         }
         minSdk 21
         targetSdk 31

@@ -21,10 +21,8 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import android.util.Base64
-import android.view.View
 import android.widget.*
 
-import com.chaquo.python.PyObject
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
 
@@ -32,40 +30,35 @@ import com.chaquo.python.android.AndroidPlatform
 class EditImageActivity : AppCompatActivity() {
 
 
-   // var btn: Button? = null
-    var iv: ImageView? = null
-    var iv2: ImageView? = null
-
-    var drawable: BitmapDrawable? = null
-    var bitmap: Bitmap? = null
-    var imageString = ""
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.image_edit)
 
-        //var btn: Button? = null
+        val capturedUri = intent.data!!
+        val previousActivity = intent.getIntExtra("callerID", 0)
+        var imageBitmap = if (previousActivity == 1) { // Bo android sobie to obraca (pewnie przez to że to linux)
+            rotateBitmap(getImageBitmap(capturedUri), 90F)
+        } else
+            getImageBitmap(capturedUri)
 
+        var originalImgBitmap = imageBitmap
 
-        //btn = findViewById<View>(R.id.applyFilterBtn) as Button
+        if (previousActivity == 1) {
+            rotateBitmap(imageBitmap, 90F)
+        }
+        // Handles getting captured image displayed on preview
+        val imagePreview = findViewById<ImageView>(R.id.imagePreview)
+        imagePreview.setImageBitmap(imageBitmap)
 
-        iv = findViewById<View>(R.id.imagePreview) as ImageView
-        iv2 = findViewById<View>(R.id.imagePreview) as ImageView
-
+        // Chaquopy init
         if (!Python.isStarted()) Python.start(AndroidPlatform(this))
-
         val py = Python.getInstance()
 
-        //val pyo = py.getModule("algorithmZin")
-        //val obj = pyo.callAttr("main", imageString)
 
-
-        val Btn = findViewById<Button>(R.id.applyFilterBtn)
-        Btn.setOnClickListener {
-            drawable = iv?.getDrawable() as BitmapDrawable
-            bitmap = drawable?.getBitmap()
-            imageString = getStringImage(bitmap)
+        val btn = findViewById<Button>(R.id.applyFilterBtn)
+        btn.setOnClickListener {
+            // Tutaj zmieniłem żeby brało bitmape z zmiennej którą już mamy żeby uniknąć 2 zmiennych z bitmapami na raz
+            val imageString = getStringImage(originalImgBitmap)
 
             //val pyo = py . getModule ("TEST");
             val pyo = py . getModule ("algorithmZin");
@@ -76,42 +69,9 @@ class EditImageActivity : AppCompatActivity() {
             val str = obj.toString()
             val data = Base64.decode(str, Base64.DEFAULT)
             val bmp = BitmapFactory.decodeByteArray(data, 0, data.size)
-            iv2!!.setImageBitmap(bmp)
-
+            imageBitmap = bmp
+            imagePreview.setImageBitmap(bmp)
         }
-
-
-
-
-
-
-            // fun getStringImage(bitmap: Bitmap?): String {
-              //  val baos = ByteArrayOutputStream()
-               // bitmap!!.compress(Bitmap.CompressFormat.PNG, 100, baos)
-                //val imageBytes = baos.toByteArray()
-              //  val encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT)
-              //  return encodedImage
-
-
-
-
-           // }
-
-
-
-
-
-
-
-        val capturedUri = intent.data!!
-        val previousActivity = intent.getIntExtra("callerID", 0)
-        var imageBitmap = getImageBitmap(capturedUri)
-
-        if (previousActivity == 1) imageBitmap = rotateBitmap(imageBitmap, 90F)
-        // Handles getting captured image displayed on preview
-        val imagePreview = findViewById<ImageView>(R.id.imagePreview)
-        imagePreview.setImageBitmap(imageBitmap)
-
 
         // Handling img saving
         val saveBtn = findViewById<Button>(R.id.save_button)
@@ -129,15 +89,17 @@ class EditImageActivity : AppCompatActivity() {
         // Image rotating
         findViewById<ImageView>(R.id.rotateLeftBtn).setOnClickListener {
             imageBitmap = rotateBitmap(imageBitmap, 90F)
+            originalImgBitmap = rotateBitmap(originalImgBitmap, 90F)
             imagePreview.setImageBitmap(imageBitmap)
         }
         findViewById<ImageView>(R.id.rotateRightBtn).setOnClickListener {
             imageBitmap = rotateBitmap(imageBitmap, -90F)
             imagePreview.setImageBitmap(imageBitmap)
+            originalImgBitmap = rotateBitmap(originalImgBitmap, -90F)
         }
 
         // Handling exit
-        exitActivity(previousActivity,capturedUri)
+        exitActivity()
     }
 
     private fun getStringImage(bitmap: Bitmap?): String {
@@ -145,15 +107,14 @@ class EditImageActivity : AppCompatActivity() {
         val baos = ByteArrayOutputStream()
         bitmap!!.compress(Bitmap.CompressFormat.PNG, 100, baos)
         val imageBytes = baos.toByteArray()
-        val encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT)
-        return encodedImage
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT)
 
     }
 
 
     override fun onBackPressed() {
         super.onBackPressed()
-        exitActivity(intent.getIntExtra("callerID", 0),intent.data!!)
+        exitActivity()
     }
 
     companion object {
@@ -214,19 +175,10 @@ class EditImageActivity : AppCompatActivity() {
         return imageBitmap
     }
 
-    private fun exitActivity(previousActivity: Int, uri: Uri) {
+    private fun exitActivity() {
         val backBtn = findViewById<Button>(R.id.return_button)
         backBtn.setOnClickListener{
-            if(previousActivity== 0 || previousActivity == 1) {
-                val tempImg = File(uri.path) // To handle later delete of temp img file
-                tempImg.delete() // Delete tmp img
-            }
-            // handles going back to previous activity
-            val intent = when (previousActivity) {
-                2 -> Intent(this@EditImageActivity, GalleryActivity::class.java)
-                else -> Intent(this@EditImageActivity, MainActivity::class.java)
-            }
-            startActivity(intent)
+            finish()
         }
     }
 }

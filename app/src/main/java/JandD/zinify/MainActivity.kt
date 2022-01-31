@@ -10,17 +10,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
-import android.view.View
-import android.widget.*
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.chaquo.python.PyObject
-import com.chaquo.python.Python
-import com.chaquo.python.android.AndroidPlatform
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.util.concurrent.ExecutorService
@@ -36,25 +33,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //Tu będą zmienne odwołujące się do Pythona
-         //Et1 = findViewById<View>(R.id.et1) as EditText
-         //Et2 = findViewById<View>(R.id.et2) as EditText
-         //Btn = findViewById<View>(R.id.btn) as Button
-         //tv = findViewById<View>(R.id.text_view) as TextView
-
-
-        //if (!Python.isStarted()) Python.start(AndroidPlatform(this))
-
-        //val py = Python.getInstance()
-        //val pyobj = py.getModule("algorytmZin") //nazwa naszego skryptu Python
-
-
-        //final PyObject[] obj = {null};
-       // Btn.setOnClickListener(View.OnClickListener {
-        //    val obj = pyobj.callAttr("main", Et1.getText().toString(), Et2.getText().toString())
-        //    tv.setText(obj.toString())
-       // })
 
         // Request camera permissions
         if (allPermissionsGranted()) {
