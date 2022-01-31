@@ -21,7 +21,7 @@ def dodge(front,back):
 def grayscale(rgb):   #skala szarości
     return np.dot(rgb[...,:3], [0.299, 0.587, 0.114])
 
-def main (data):
+def main (data,sigma):
     decode_data = base64.b64decode(data)
     np_data = np.fromstring(decode_data,np.uint8)
     img = cv2.imdecode(np_data,cv2.IMREAD_UNCHANGED)
@@ -39,7 +39,7 @@ def main (data):
 
     i = 255-g   #odwracanie obrazu
 
-    b = scipy.ndimage.filters.gaussian_filter(i,sigma=150)  #rozmycie obrazu za sprawą filtra gaussowskiego
+    b = scipy.ndimage.filters.gaussian_filter(i,sigma)  #rozmycie obrazu za sprawą filtra gaussowskiego
     r= dodge(b,g) #dodawanie i łączenie
  
     pil_im = Image.fromarray(r)
