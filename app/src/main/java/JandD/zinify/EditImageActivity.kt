@@ -1,8 +1,6 @@
 package JandD.zinify
 
-import JandD.zinify.gallery.GalleryActivity
 import android.content.ContentValues.TAG
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -15,19 +13,15 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import java.io.*
 import java.lang.Exception
-import java.util.*
 import java.io.File as File
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
-import android.graphics.drawable.BitmapDrawable
 import android.util.Base64
 import android.widget.*
 
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
-import com.google.android.material.slider.RangeSlider
 import com.google.android.material.slider.Slider
-import kotlinx.android.synthetic.main.image_edit.*
 
 
 class EditImageActivity : AppCompatActivity() {
@@ -45,6 +39,8 @@ class EditImageActivity : AppCompatActivity() {
         } else
             getImageBitmap(capturedUri)
 
+        val scalingScale = 4
+        imageBitmap = Bitmap.createScaledBitmap(imageBitmap, imageBitmap.width/scalingScale, imageBitmap.height/scalingScale, true)
         var originalImgBitmap = imageBitmap
 
         if (previousActivity == 1) {
